@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useRouter } from "next/navigation";
 import { Button } from "@repo/ui/button";
@@ -15,7 +15,7 @@ interface ParkingLotWithLocation extends ParkingLot {
   isempty: boolean;
 }
 
-export default function SearchResult() {
+function SearchResultContent() {
     const router = useRouter();
     
     function handleClick(lot: ParkingLotWithLocation) {
@@ -166,6 +166,14 @@ export default function SearchResult() {
                 ))}
             </div>
         </div>
+    );
+}
+
+export default function SearchResult() {
+    return (
+        <Suspense fallback={<div>Loading search results...</div>}>
+            <SearchResultContent />
+        </Suspense>
     );
 }
 

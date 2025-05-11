@@ -1,5 +1,4 @@
-// import prisma from "@repo/db/client"
-
+// import { prisma } from "@repo/db/"
 // import { NextRequest, NextResponse } from "next/server";
 
 // export async function GET(req: NextRequest) {
@@ -34,8 +33,7 @@
 // }
 
 
-
-import prisma from "@repo/db/client";
+import { prisma } from "@repo/db/"
 import { NextRequest, NextResponse } from "next/server";
 
 interface ParkingLot {

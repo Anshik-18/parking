@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@repo/db/client";
+import { prisma } from "@repo/db/"
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     console.log("hi")

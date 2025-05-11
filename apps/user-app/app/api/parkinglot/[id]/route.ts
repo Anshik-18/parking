@@ -1,18 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@repo/db/";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
 export async function GET(
   _request: NextRequest,
-  props: Props
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = props.params;
+    const { id } = context.params;
 
     // Make sure to convert the id to number
     const lot = await prisma.parkinglot.findUnique({
@@ -26,8 +20,8 @@ export async function GET(
     }
 
     return NextResponse.json(lot);
-  } catch (error) {
-    // Handle any unexpected errors
+  } catch (_error) {
+    // Using _error to indicate it's intentionally unused
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

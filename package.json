@@ -25,6 +25,7 @@
   "description": "This Turborepo starter is maintained by the Turborepo core team.",
   "main": "index.js",
   "dependencies": {
+    "@repo/db": "^1.0.0",
     "accepts": "^2.0.0",
     "acorn": "^8.14.1",
     "acorn-jsx": "^5.3.2",

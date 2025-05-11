@@ -1,16 +1,18 @@
-import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-import {prisma} from '@repo/db';
 
 
+import { redirect } from 'next/navigation'
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "./lib/auth";
 
 
-export default function Home() {
-  return (
-    <div>
-      hi
-    </div>
-   
-  );
+export default async function Page() {
+ 
+  const session = await getServerSession(authOptions);
+  if (session?.user) {
+    redirect('/home')
+  } else {
+    redirect('/api/auth/signin')
+  }
+  
 }

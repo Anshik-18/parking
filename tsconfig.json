@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/db": ["packages/db/src"]
+    }
+  },
+  "include": [
+    "packages/*/src/**/*",
+    "apps/*/src/**/*"
+  ]
+}

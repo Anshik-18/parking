@@ -1,7 +1,7 @@
 
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../lib/auth"
-import {prisma} from '@repo/db';
+import { prisma } from "@repo/db/"
 import  {UserParkingCard}  from "../../../Components/User_parking_status"
 import { Searchboxcard } from "../../../Components/Search"
 import { SearchboxMapClient } from "../../../Components/SearchMap"

@@ -2,10 +2,10 @@
 
 import { Button } from "@repo/ui/button";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { ParkingLot } from "@repo/db/generated/client";
 
-export default function Bookparking() {
+function BookParkingContent() {
   const searchparams = useSearchParams();
   const parking_lot_id = searchparams.get("lotid");
   const [lotdetails, setLotDetails] = useState<ParkingLot | null>(null);
@@ -150,7 +150,14 @@ export default function Bookparking() {
       </div>
     </div>
   );
-  
+}
+
+export default function Bookparking() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookParkingContent />
+    </Suspense>
+  );
 }
 
 

@@ -1,12 +1,17 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@repo/db/";
 
+type RouteParams = {
+  id: string;
+};
+
 export async function GET(
-  _request: NextRequest,
-  context: { params: { id: string } }
-) {
+  request: NextRequest,
+  { params }: { params: RouteParams }
+): Promise<NextResponse> {
   try {
-    const { id } = context.params;
+    const { id } = params;
 
     // Make sure to convert the id to number
     const lot = await prisma.parkinglot.findUnique({

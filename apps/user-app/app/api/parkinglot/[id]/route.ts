@@ -1,21 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@repo/db/";
 
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  _request: NextRequest,
+  props: Props
 ) {
-  const id = params.id;
+  try {
+    const { id } = props.params;
 
-  const lot = await prisma.parkinglot.findUnique({
-    where: { 
-      id: Number(id)
-    },
-  });
+    // Make sure to convert the id to number
+    const lot = await prisma.parkinglot.findUnique({
+      where: {
+        id: Number(id), // Convert to number here
+      },
+    });
 
-  if (!lot) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (!lot) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(lot);
+  } catch (error) {
+    // Handle any unexpected errors
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
-
-  return NextResponse.json(lot);
 }
+  

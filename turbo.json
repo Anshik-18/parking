@@ -4,7 +4,8 @@
   "globalEnv": ["DATABASE_URL", "JWT_SECRET"],
   "tasks": {
     "db:generate": {
-      "cache": false
+      "cache": false,
+      "outputs": ["generated/**"]
     },
     "db:migrate": {
       "cache": false,
@@ -13,10 +14,10 @@
     "db:deploy": {
       "cache": false
     },
-   "build": {
-  "dependsOn": ["^build", "^db:generate"],
-  "inputs": ["$TURBO_DEFAULT$", ".env*","DATABASE_URL","JWT_SECRET"],
-  "outputs": [".next/**", "!.next/cache/**"]
+    "build": {
+      "dependsOn": ["^build", "^db:generate"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "DATABASE_URL", "JWT_SECRET"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]

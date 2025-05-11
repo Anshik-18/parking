@@ -5,19 +5,31 @@ import { NextAuthOptions } from "next-auth";
 import { Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
+// Extend the built-in session types
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      email?: string | null;
+      name?: string | null;
+      image?: string | null;
+      userType?: string;
+    }
+  }
+  
+  interface User {
+    id: string;
+    email?: string | null;
+    name?: string | null;
+    image?: string | null;
+    userType?: string;
+  }
+}
+
 interface Credentials {
   phone: string;
   password: string;
   name?: string;
-}
-
-interface CustomSession extends Session {
-  user: {
-    id: string;
-    email?: string | null;
-    name?: string | null;
-    userType: string;
-  };
 }
 
 export const authOptions: NextAuthOptions = {
@@ -43,7 +55,8 @@ export const authOptions: NextAuthOptions = {
           if (passwordValidation) {
             return {
               id: existingUser.id.toString(),
-              email: existingUser.number
+              email: existingUser.number,
+              name: existingUser.name
             };
           }
           return null;
@@ -70,13 +83,22 @@ export const authOptions: NextAuthOptions = {
       },
     })
   ],
-  secret: process.env.JWT_SECRET || "secret",
   callbacks: {
-    async session({ token, session }: { token: JWT; session: CustomSession }) {
-      session.user.id = token.sub as string;
-      session.user.userType = "user";
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.userType = "user";
+      }
+      return token;
+    },
+    async session({ token, session }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+        session.user.userType = token.userType as string;
+      }
       return session;
     }
-  }
+  },
+  secret: process.env.JWT_SECRET || "secret",
 };
   

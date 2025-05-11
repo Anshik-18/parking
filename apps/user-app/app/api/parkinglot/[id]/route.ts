@@ -1,23 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@repo/db/"
-
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
+import { prisma } from "@repo/db/";
 
 export async function GET(
   request: NextRequest,
-  context: RouteContext
+  { params }: { params: { id: string } }
 ) {
-  const id = context.params.id;
-  console.log(id)
+  const id = params.id;
 
   const lot = await prisma.parkinglot.findUnique({
     where: { 
       id: Number(id)
-     },
+    },
   });
 
   if (!lot) {

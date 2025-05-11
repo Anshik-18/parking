@@ -1,14 +1,14 @@
-
 "use client";
 
 import { Button } from "@repo/ui/button";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ParkingLot } from "@repo/db/generated/client";
 
 export default function Bookparking() {
   const searchparams = useSearchParams();
   const parking_lot_id = searchparams.get("lotid");
-  const[lotdetails,setLotDetails] = useState<any>({});
+  const [lotdetails, setLotDetails] = useState<ParkingLot | null>(null);
   const [carnumber, setCarnumber] = useState("");
   const [result_status, setResultStatus] = useState<boolean | null>(null);
   const [result_message, setResultMessage] = useState("");
@@ -95,10 +95,10 @@ export default function Bookparking() {
             </h2>
   
             <div className="mb-4 space-y-1">
-              <h1 className="text-xl font-semibold text-gray-800">{lotdetails.Name}</h1>
-              <p className="text-gray-600">Price: ₹{lotdetails.price}</p>
-              <p className="text-gray-600">Address: {lotdetails.Adress}</p>
-              <p className="text-gray-600">Available Slots: {lotdetails.vacantslots}</p>
+              <h1 className="text-xl font-semibold text-gray-800">{lotdetails?.Name}</h1>
+              <p className="text-gray-600">Price: ₹{lotdetails?.price}</p>
+              <p className="text-gray-600">Address: {lotdetails?.Adress}</p>
+              <p className="text-gray-600">Available Slots: {lotdetails?.vacantslots}</p>
             </div>
   
             <input
@@ -109,9 +109,9 @@ export default function Bookparking() {
               onChange={(e) => setCarnumber(e.target.value)}
             />
     
-            <Button children="Book the Slot " onClick={()=>{
-              onsubmit()
-            }}/>
+            <Button onClick={() => onsubmit()}>
+              Book the Slot
+            </Button>
 
        
             

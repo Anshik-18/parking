@@ -47,7 +47,7 @@ export default async function Home() {
                     status={booking.status}
                     Adress={booking.parkingslot.Adress}
                     carNumber={booking.carnumber}
-                    location={booking.starttime}
+                    location="{booking.starttime}"
                 />
             </div>
             <div>

@@ -16,7 +16,7 @@
     },
     "build": {
       "dependsOn": ["^build", "^db:generate"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "DATABASE_URL", "JWT_SECRET"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "DATABASE_URL", "JWT_SECRET","NEXTAUTH_URL"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {

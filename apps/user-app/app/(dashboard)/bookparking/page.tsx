@@ -3,12 +3,12 @@
 import { Button } from "@repo/ui/button";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
-import { ParkingLot } from "@repo/db/generated/client";
+import { parkinglot } from "@repo/db";
 
 function BookParkingContent() {
   const searchparams = useSearchParams();
   const parking_lot_id = searchparams.get("lotid");
-  const [lotdetails, setLotDetails] = useState<ParkingLot | null>(null);
+  const [lotdetails, setLotDetails] = useState<parkinglot | null>(null);
   const [carnumber, setCarnumber] = useState("");
   const [result_status, setResultStatus] = useState<boolean | null>(null);
   const [result_message, setResultMessage] = useState("");

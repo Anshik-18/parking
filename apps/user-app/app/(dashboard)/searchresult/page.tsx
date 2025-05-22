@@ -5,9 +5,9 @@ import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useRouter } from "next/navigation";
 import { Button } from "@repo/ui/button";
 import { InfoWindow } from "@react-google-maps/api";
-import { ParkingLot } from "@repo/db/generated/client";
+import { parkinglot } from "@repo/db";
 
-interface ParkingLotWithLocation extends ParkingLot {
+interface ParkingLotWithLocation extends parkinglot {
   lat: number;
   lng: number;
   distance: string;

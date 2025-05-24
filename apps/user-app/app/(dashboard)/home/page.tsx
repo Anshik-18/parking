@@ -22,22 +22,26 @@ export default async function Home() {
     const userid = session?.user?.id
 
     if (!userid) {
-        return (
+        return (            
             <div>
+                <SearchboxMapClient />
                 user not logged in
             </div>
         )
     }
+   
 
-    const booking = await getbooking(userid)
-    if (!booking) {
-        return (
-            <div>
-                <SearchboxMapClient />
-                &quot;No bookings Found&quot;
-            </div>
-        )
-    }
+        const booking = await getbooking(userid)
+        if (!booking) {
+            return (
+                <div>
+                    <SearchboxMapClient />
+                    &quot;No bookings Found&quot;
+                </div>
+            )
+        }
+  
+
 
     return (
         <div>
